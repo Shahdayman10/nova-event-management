@@ -1,58 +1,326 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# NOVA — Event Management Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+NOVA is a full-stack event management platform designed for organizing and preparing small events such as birthdays, graduations, engagements, giveaways, decorations, bouquets, and gifts.
 
-## About Laravel
+The platform provides a public website for browsing services and packages, customer accounts for submitting and tracking quote requests, and an admin dashboard for managing the platform.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tech Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Backend
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* Laravel 13
+* PHP 8.3
+* MySQL
+* Laravel Sanctum
+* RESTful API
+* PHPUnit
 
-## Learning Laravel
+### Frontend
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* React 19
+* TypeScript
+* Vite
+* Axios
+* CSS
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Development Tools
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+* Laragon
+* Git & GitHub
+* Laravel Pint
 
-## Agentic Development
+## Main Features
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### Public Website
 
-```bash
-composer require laravel/boost --dev
+* Home page
+* Services
+* Service details
+* Packages
+* Gallery
+* About Us
+* Contact
+* Authentication
 
-php artisan boost:install
+### Customer Features
+
+* Register and login
+* View available services and packages
+* Submit quote requests
+* View personal quote requests
+* Track request status
+* Favorites
+* Reviews
+* Profile management
+* Notifications
+
+### Admin Features
+
+* Admin authentication and authorization
+* Dashboard
+* Manage services
+* Manage packages
+* Manage customers
+* Manage quote requests
+* Update request status
+* Manage reviews
+* View platform information
+
+### Quote Request Workflow
+
+Customer requests follow a simple status workflow:
+
+`Pending → Confirmed → Completed`
+
+Customers can view the status of their own requests, while administrators can manage and update request statuses.
+
+### Authentication & Authorization
+
+The application uses Laravel Sanctum for API authentication.
+
+The system supports different user roles, including:
+
+* Customer
+* Admin
+
+Administrative endpoints are protected using authentication and admin authorization middleware.
+
+Customer data is isolated so authenticated customers can access only their own account-related resources.
+
+## Project Structure
+
+```text
+nova-backend/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   └── Middleware/
+│   ├── Models/
+│   └── Notifications/
+│
+├── database/
+│   ├── migrations/
+│   ├── factories/
+│   └── seeders/
+│
+├── docs/
+│   ├── API documentation
+│   ├── Architecture documentation
+│   ├── Database documentation
+│   ├── Testing documentation
+│   └── Developer handoff documentation
+│
+├── frontend/
+│   └── src/
+│       ├── components/
+│       ├── context/
+│       ├── pages/
+│       └── services/
+│
+├── routes/
+│   └── api.php
+│
+├── tests/
+│   ├── Feature/
+│   └── Unit/
+│
+└── README.md
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## API
 
-## Contributing
+The backend provides RESTful API endpoints for:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Authentication
+* Services
+* Packages
+* Quote requests
+* Favorites
+* Reviews
+* Notifications
+* Profile
+* Customer management
+* Admin management
 
-## Code of Conduct
+Detailed API documentation is available in:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`docs/04-API-DOCUMENTATION.md`
 
-## Security Vulnerabilities
+## Testing
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+The project includes feature and unit tests covering major application workflows and API functionality.
+
+The latest verified Laravel test suite passed:
+
+* **11 tests**
+* **96 assertions**
+
+Run the tests with:
+
+```bash
+php artisan test
+```
+
+## Local Setup
+
+### Requirements
+
+* PHP 8.3+
+* Composer
+* Node.js
+* npm
+* MySQL
+* Laravel
+* Git
+
+### Backend
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Shahdayman10/nova-event-management.git
+cd nova-event-management
+```
+
+Install PHP dependencies:
+
+```bash
+composer install
+```
+
+Create the environment file:
+
+```bash
+cp .env.example .env
+```
+
+Generate the application key:
+
+```bash
+php artisan key:generate
+```
+
+Configure the database in `.env`.
+
+Create the database and run migrations:
+
+```bash
+php artisan migrate
+```
+
+Seed the database:
+
+```bash
+php artisan db:seed
+```
+
+Start the Laravel development server:
+
+```bash
+php artisan serve
+```
+
+The backend will normally be available at:
+
+```text
+http://localhost:8000
+```
+
+### Frontend
+
+Open another terminal:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the Vite development server:
+
+```bash
+npm run dev
+```
+
+## Environment Variables
+
+Sensitive environment configuration is stored in `.env` and is intentionally excluded from the repository.
+
+Use `.env.example` as the starting point for local configuration.
+
+**Never commit real passwords, API keys, tokens, or other secrets to GitHub.**
+
+## Documentation
+
+The project includes detailed documentation for future development and handoff.
+
+Start here:
+
+`docs/DOCUMENTATION-INDEX.md`
+
+Important documentation includes:
+
+* Project overview
+* Setup and running instructions
+* Backend architecture
+* API documentation
+* Authentication and authorization
+* Database structure
+* Frontend architecture
+* Feature map
+* Admin dashboard
+* Customer flow
+* Testing
+* Recent changes
+* Image and storage handling
+* Known issues and next steps
+* Developer handoff
+* Project file map
+* Changelog
+
+## Current Project Status
+
+The main backend and frontend features have been implemented and documented.
+
+Automated backend tests have been verified successfully, and the React frontend build has been verified.
+
+Manual browser-based UI testing and production deployment are still part of the next development stage.
+
+## Future Improvements
+
+Possible future improvements include:
+
+* Production deployment
+* Production database configuration
+* Image optimization and storage improvements
+* Lazy loading for images
+* Improved frontend performance
+* Final browser-based UI testing
+* Cleaning up package-manager configuration
+* Additional automated tests
+* Production-ready environment configuration
+
+## Portfolio Note
+
+NOVA is a fictional event management project created as a full-stack web development portfolio project.
+
+It demonstrates practical experience with:
+
+* Backend API development
+* Laravel application architecture
+* React frontend development
+* Authentication and authorization
+* Database design
+* REST APIs
+* Admin/customer workflows
+* Automated testing
+* Git and GitHub
+* Technical documentation
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is intended for portfolio and educational purposes.
