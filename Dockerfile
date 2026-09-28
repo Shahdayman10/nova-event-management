@@ -8,6 +8,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1 \
 RUN apk add --no-cache \
         gettext \
         icu-libs \
+        libpq \
         libxml2 \
         libzip \
         nginx \
@@ -16,10 +17,11 @@ RUN apk add --no-cache \
     && apk add --no-cache --virtual .build-deps \
         $PHPIZE_DEPS \
         icu-dev \
+        postgresql-dev \
         libxml2-dev \
         libzip-dev \
         oniguruma-dev \
-    && docker-php-ext-install -j"$(nproc)" intl mbstring opcache pdo_mysql xml zip \
+    && docker-php-ext-install -j"$(nproc)" intl mbstring opcache pdo_mysql pgsql pdo_pgsql xml zip \
     && apk del .build-deps
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
