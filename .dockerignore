@@ -1,0 +1,17 @@
+.git
+.github
+.vscode
+.env
+.env.*
+!.env.example
+frontend
+node_modules
+vendor
+storage/logs/*
+.phpunit.result.cache
+phpunit.xml
+README.md
+docs
+tests
+Dockerfile
+.dockerignore
