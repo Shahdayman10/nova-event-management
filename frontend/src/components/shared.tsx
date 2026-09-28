@@ -109,6 +109,7 @@ export function SectionLabel({ children }: { children: React.ReactNode }) {
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
@@ -132,6 +133,10 @@ export function Navbar() {
 
   const alwaysOpaque = !isHome;
   const overlayMode = isHome && !scrolled && !menuOpen;
+  const accountMenuBackground = overlayMode ? "rgba(42,33,24,0.96)" : "var(--color-card)";
+  const accountMenuText = overlayMode ? "var(--color-primary-foreground)" : "var(--color-foreground)";
+  const accountMenuBorder = overlayMode ? "rgba(248,245,241,0.22)" : "var(--color-border)";
+  const accountMenuHover = overlayMode ? "rgba(248,245,241,0.12)" : "var(--color-secondary)";
 
   return (
     <nav
@@ -146,7 +151,7 @@ export function Navbar() {
       }}
     >
       <div
-        className="mx-auto flex items-center justify-between px-6 py-4"
+        className="relative mx-auto flex items-center justify-between px-6 py-4"
         style={{ maxWidth: 1440 }}
       >
         <Link to="/" className="flex items-center gap-2 group" aria-label="NOVA home">
@@ -201,22 +206,31 @@ export function Navbar() {
             </>
           ) : isAuthenticated ? (
             <>
-              <Link to="/quotes" className="text-sm font-medium" style={{ color: "var(--color-foreground)" }}>My Requests</Link>
-              <Link to="/favorites" className="text-sm font-medium" style={{ color: "var(--color-foreground)" }}>Favorites</Link>
-              <Link to="/notifications" className="text-sm font-medium" style={{ color: "var(--color-foreground)" }}>Notifications</Link>
-              <Link to="/profile" className="text-sm font-medium" style={{ color: "var(--color-foreground)" }}>Profile</Link>
-              <button
-                type="button"
-                onClick={() => void logout()}
-                className="btn-ghost"
-                style={{
-                  padding: "10px 18px",
-                  color: overlayMode ? "var(--color-primary-foreground)" : "var(--color-primary)",
-                  borderColor: overlayMode ? "rgba(248,245,241,0.4)" : undefined,
-                }}
-              >
-                Logout
-              </button>
+              <div className="relative">
+                <button
+                  type="button"
+                  aria-expanded={profileMenuOpen}
+                  aria-haspopup="menu"
+                  onClick={() => setProfileMenuOpen((open) => !open)}
+                  className="flex items-center gap-2 text-sm font-medium"
+                  style={{ color: overlayMode ? "var(--color-primary-foreground)" : "var(--color-foreground)" }}
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full text-xs" style={{ backgroundColor: overlayMode ? "rgba(248,245,241,0.18)" : "var(--color-secondary)" }}>
+                    {(user?.name ?? "P").charAt(0).toUpperCase()}
+                  </span>
+                  <span>{user?.name ?? "Profile"}</span>
+                  <span aria-hidden="true" style={{ fontSize: "0.65rem" }}>⌄</span>
+                </button>
+                {profileMenuOpen && (
+                  <div role="menu" className="absolute right-0 top-full z-50 mt-3 grid w-56 gap-1 rounded-[var(--radius)] border p-2 shadow-lg" style={{ backgroundColor: accountMenuBackground, borderColor: accountMenuBorder }}>
+                    <Link to="/quotes" role="menuitem" className="rounded-[var(--radius)] px-3 py-2 text-sm" style={{ color: accountMenuText }} onMouseEnter={(event) => { event.currentTarget.style.backgroundColor = accountMenuHover; }} onMouseLeave={(event) => { event.currentTarget.style.backgroundColor = "transparent"; }} onClick={() => setProfileMenuOpen(false)}>My Requests</Link>
+                    <Link to="/favorites" role="menuitem" className="rounded-[var(--radius)] px-3 py-2 text-sm" style={{ color: accountMenuText }} onMouseEnter={(event) => { event.currentTarget.style.backgroundColor = accountMenuHover; }} onMouseLeave={(event) => { event.currentTarget.style.backgroundColor = "transparent"; }} onClick={() => setProfileMenuOpen(false)}>Favorites</Link>
+                    <Link to="/notifications" role="menuitem" className="rounded-[var(--radius)] px-3 py-2 text-sm" style={{ color: accountMenuText }} onMouseEnter={(event) => { event.currentTarget.style.backgroundColor = accountMenuHover; }} onMouseLeave={(event) => { event.currentTarget.style.backgroundColor = "transparent"; }} onClick={() => setProfileMenuOpen(false)}>Notifications</Link>
+                    <Link to="/profile" role="menuitem" className="rounded-[var(--radius)] px-3 py-2 text-sm" style={{ color: accountMenuText }} onMouseEnter={(event) => { event.currentTarget.style.backgroundColor = accountMenuHover; }} onMouseLeave={(event) => { event.currentTarget.style.backgroundColor = "transparent"; }} onClick={() => setProfileMenuOpen(false)}>Profile settings</Link>
+                    <button type="button" role="menuitem" className="mt-1 border-t px-3 py-2 text-left text-sm" style={{ borderColor: accountMenuBorder, color: overlayMode ? "var(--color-accent)" : "var(--color-primary)" }} onClick={() => { setProfileMenuOpen(false); void logout(); }}>Logout</button>
+                  </div>
+                )}
+              </div>
             </>
           ) : (
             <>
@@ -281,20 +295,21 @@ export function Navbar() {
             </>
           ) : isAuthenticated ? (
             <>
-              <Link to="/quotes" className="text-sm font-medium py-1" style={{ color: "var(--color-foreground)" }} onClick={() => setMenuOpen(false)}>My Requests</Link>
-              <Link to="/favorites" className="text-sm font-medium py-1" style={{ color: "var(--color-foreground)" }} onClick={() => setMenuOpen(false)}>Favorites</Link>
-              <Link to="/notifications" className="text-sm font-medium py-1" style={{ color: "var(--color-foreground)" }} onClick={() => setMenuOpen(false)}>Notifications</Link>
-              <Link to="/profile" className="text-sm font-medium py-1" style={{ color: "var(--color-foreground)" }} onClick={() => setMenuOpen(false)}>Profile</Link>
-              <button
-                type="button"
-                className="btn-ghost text-center mt-2"
-                onClick={() => {
-                  setMenuOpen(false);
-                  void logout();
-                }}
-              >
-                Logout
-              </button>
+              <div className="border-t pt-3" style={{ borderColor: "var(--color-border)" }}>
+                <button type="button" className="flex w-full items-center justify-between py-1 text-sm font-medium" style={{ color: "var(--color-foreground)" }} onClick={() => setProfileMenuOpen((open) => !open)} aria-expanded={profileMenuOpen}>
+                  <span className="flex items-center gap-2"><span className="flex h-8 w-8 items-center justify-center rounded-full text-xs" style={{ backgroundColor: "var(--color-secondary)" }}>{(user?.name ?? "P").charAt(0).toUpperCase()}</span>{user?.name ?? "Profile"}</span>
+                  <span aria-hidden="true">{profileMenuOpen ? "⌃" : "⌄"}</span>
+                </button>
+                {profileMenuOpen && (
+                  <div className="mt-2 grid gap-1 pl-10">
+                    <Link to="/quotes" className="py-1 text-sm" style={{ color: "var(--color-foreground)" }} onClick={() => setMenuOpen(false)}>My Requests</Link>
+                    <Link to="/favorites" className="py-1 text-sm" style={{ color: "var(--color-foreground)" }} onClick={() => setMenuOpen(false)}>Favorites</Link>
+                    <Link to="/notifications" className="py-1 text-sm" style={{ color: "var(--color-foreground)" }} onClick={() => setMenuOpen(false)}>Notifications</Link>
+                    <Link to="/profile" className="py-1 text-sm" style={{ color: "var(--color-foreground)" }} onClick={() => setMenuOpen(false)}>Profile settings</Link>
+                    <button type="button" className="mt-2 border-t pt-2 text-left text-sm" style={{ borderColor: "var(--color-border)", color: "var(--color-primary)" }} onClick={() => { setMenuOpen(false); setProfileMenuOpen(false); void logout(); }}>Logout</button>
+                  </div>
+                )}
+              </div>
             </>
           ) : (
             <>
@@ -332,9 +347,9 @@ export function Footer() {
       id="about"
       style={{ backgroundColor: "var(--color-foreground)", color: "var(--color-primary-foreground)" }}
     >
-      <div className="container-wide py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          <div className="lg:col-span-2">
+      <div className="container-wide pb-16 pt-20 md:pb-20 md:pt-28">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-10 lg:grid-cols-5 lg:gap-16">
+          <div className="lg:col-span-2 lg:pr-8">
             <p
               className="text-3xl tracking-[0.18em] font-medium mb-4"
               style={{ fontFamily: "var(--font-serif)", color: "var(--color-primary-foreground)" }}
@@ -385,7 +400,7 @@ export function Footer() {
         </div>
 
         <div
-          className="mt-14 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs"
+          className="mt-12 flex flex-col items-center justify-between gap-3 border-t pt-6 text-center text-xs sm:mt-16 sm:flex-row sm:text-left"
           style={{
             borderTop: "1px solid rgba(248,245,241,0.08)",
             color: "rgba(248,245,241,0.3)",

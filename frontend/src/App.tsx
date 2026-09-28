@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import HomePage from "./pages/HomePage";
@@ -16,11 +17,42 @@ import FavoritesPage from "./pages/FavoritesPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotificationsPage from "./pages/NotificationsPage";
 
+const PAGE_TITLES: Record<string, string> = {
+  "/": "Home",
+  "/services": "Services",
+  "/packages": "Packages",
+  "/gallery": "Gallery",
+  "/about": "About Us",
+  "/contact": "Contact",
+  "/login": "Log In",
+  "/register": "Create Account",
+  "/quotes": "My Quotes",
+  "/favorites": "Favorites",
+  "/profile": "My Profile",
+  "/notifications": "Notifications",
+  "/admin": "Admin Dashboard",
+};
+
+function PageTitle() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const title = pathname.startsWith("/services/")
+      ? "Service Details"
+      : PAGE_TITLES[pathname] ?? "NOVA";
+
+    document.title = `NOVA | ${title}`;
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <AuthProvider>
       <FavoritesProvider>
       <BrowserRouter>
+        <PageTitle />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/services" element={<ServicesPage />} />

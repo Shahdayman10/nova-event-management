@@ -233,11 +233,11 @@ function Packages() {
           </p>
         </div>
 
-        {packages.length === 0 ? <p className="py-8 text-center" style={{ color: "var(--color-muted-foreground)" }}>No packages available.</p> : <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        {packages.length === 0 ? <p className="py-8 text-center" style={{ color: "var(--color-muted-foreground)" }}>No packages available.</p> : <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 px-2 -mx-2">
           {packages.map((pkg) => (
             <div
               key={pkg.id}
-              className="relative flex flex-col"
+              className="relative flex min-w-[min(86vw,360px)] max-w-[360px] shrink-0 snap-start flex-col md:min-w-[360px]"
               style={{
                 backgroundColor: pkg.name.toLowerCase().includes("signature") ? "var(--color-primary)" : "var(--color-card)",
                 border: pkg.name.toLowerCase().includes("signature")

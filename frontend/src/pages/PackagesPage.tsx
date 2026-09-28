@@ -6,6 +6,15 @@ import { FavoriteButton } from "../context/FavoritesContext";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
+const INCLUSIONS = [
+  { label: "Event styling" },
+  { label: "Floral arrangements" },
+  { label: "Table setup" },
+  { label: "Personalized details" },
+  { label: "Setup and coordination" },
+  { label: "Consultation and planning" },
+];
+
 interface Pkg {
   id: number;
   serviceId: number;
