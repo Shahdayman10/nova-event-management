@@ -37,8 +37,7 @@ RUN composer install \
 
 COPY . .
 
-RUN composer dump-autoload --no-dev --no-interaction --no-progress --optimize \
-    && php artisan package:discover --ansi \
+RUN composer dump-autoload --no-dev --no-interaction --optimize \    && php artisan package:discover --ansi \
     && mkdir -p storage/app/public storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache
 
