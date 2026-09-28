@@ -1,0 +1,10 @@
+{
+  "description": "NOVA offers a sophisticated platform for planning and decorating special occasions, providing personalized services and elegant designs for memorable events.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

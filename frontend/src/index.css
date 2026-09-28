@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-background: #F8F5F1;
+  --color-foreground: #2A2118;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #2A2118;
+  --color-primary: #8B6E5A;
+  --color-primary-foreground: #F8F5F1;
+  --color-secondary: #EDE7DF;
+  --color-secondary-foreground: #4A3728;
+  --color-muted: #F0EAE3;
+  --color-muted-foreground: #7A6355;
+  --color-accent: #C9B49A;
+  --color-accent-foreground: #2A2118;
+  --color-border: #DDD5C9;
+  --color-ring: #8B6E5A;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-sans: 'Outfit', system-ui, sans-serif;
+  --radius: 0.25rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* Hide scrollbar until hover */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
