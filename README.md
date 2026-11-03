@@ -5,6 +5,10 @@ NOVA is a full-stack event management platform designed for organizing and prepa
 The platform provides a public website for browsing services and packages, customer accounts for submitting and tracking quote requests, and an admin dashboard for managing the platform.
 
 ## Tech Stack
+## Screenshots
+
+### Home Page
+![NOVA Home Page](screenshots/nova-web-site.png)
 
 ### Backend
 
